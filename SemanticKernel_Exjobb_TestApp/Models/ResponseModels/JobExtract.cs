@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,40 +13,56 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 	public class JobExtract
 	{
 		// Job adds can have multiple titles. Thereby we have a list of titles.
+		[Description("Svara i CAPS. Tjänsten titel, t.ex. arkitekt, systemutvecklare, snickare. Obligatorisk")]
 		public List<string> EmploymentTitle { get; set; }
 
+		[Description("Anställningstyp. Tillsvidare,Tidsbegränsad,Projekt eller Praktik. Returnera null om okänd")]
 		[JsonConverter(typeof(JsonStringEnumConverter))] // Ensures enum values are serialized/deserialized as strings (e.g. "Tillsvidare") instead of integers, which is required for correct LLM output parsing.
-		public EmploymentType EmploymentType { get; set; }              // T.ex. "Tillsvidare"
+		public EmploymentType? EmploymentType { get; set; }              // T.ex. "Tillsvidare"
 
-		public bool IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
+		[Description("Är anställningen provanställning? Svara true, false eller null om okänt.")]
+		public bool? IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
+		
+		[Description("Primär anställningsort. Ange samtliga om fler. Svara distans om distans. Returnera null om okänd")]
+		public List<string> Location { get; set; }                    // T.ex. "Karlstad, Stockholm, Distans"
 
-		public string Location { get; set; }                    // T.ex. "Karlstad, Stockholm, Distans"
+		[Description("Arbetsuppgifter i tjänsten. Svara enbart med nyckelord Exempel: handläggning, testning, dokumentation. Obligatoriskt.")]
+		public List<string> JobResponsiblities { get; set; }  // ["C#", ".NET", "Blazor"]
 
-		public List<string> ToolsAndTechnologies { get; set; }  // ["C#", ".NET", "Blazor"]
-
+		[Description("Obligatoriska färdigheter för tjänsten, såsom erfarenhet inom specifika områden eller teknologier. Svara enbart med nyckelord. (JavaScript, SQL, MassTransit). Obligatoriskt. Särskilj från meriterande färdigheter")]
 		public List<string> RequiredSkills { get; set; }        // ["SQL", "agilt arbete"]
-	
+
+		[Description("Meriterande färdigheter för tjänsten, såsom erfarenhet inom specifika områden eller teknologier. Svara enbart med nyckelord (JavaScript, SQL, MassTransit). Obligatoriskt. Särskilj från obligatoriska färdigheter")]
 		public List<string> MeritingSkills { get; set; }        // ["RabbitMQ", "Azure DevOps"]
 
+		[Description("Personliga egenskaper. T.ex ”Engagerad” eller ”Analytisk”. Svara enbart med nyckelord. Obligatorisk.")]
 		public List<string> SoftSkills { get; set; } // ["samarbetsorienterad", "problemlösande"]
 
+		[Description("Förväntad erfarenhetsnivå. Välj Junior, Mid eller Senior. Obligatoriskt.")]
 		[JsonConverter(typeof(JsonStringEnumConverter))] // Ensures enum values are serialized/deserialized as strings (e.g. "Mid") instead of integers, which is required for correct LLM output parsing.
 		public ExperienceLevel ExperienceLevel { get; set; } // Junior, Mid, Senior
 
+		[Description("Kontaktperson för annonsen. Obligatoriskt")]
 		public ContactPerson Contact { get; set; }
 
-		public string ReferenceNumber { get; set; }
+		[Description("Referensnummer för annonsen. Returnera null om okänd")]
+		public string? ReferenceNumber { get; set; }
 
-		public DateTime ApplicationDeadline { get; set; }         // "2025-04-28"
-
+		[Description("Sista ansökningsdag. Returnera null om okänd. Svara i följande format YYYY-MM-DD. ")]
+		public DateTime? ApplicationDeadline { get; set; }         // "2025-04-28"
+		
+		[Description("Arbetsgivare. Obligatoriskt.")]
 		public string Employer { get; set; }
 	}
 
 	public class ContactPerson
 	{
-		public string Name { get; set; }
-		public string Email { get; set; }
-		public string Phone { get; set; }
+		[Description("Namn på kontaktperson. Svara med Förnamn Efternamn. Returnera null om okänd.")]
+		public string? Name { get; set; }
+		[Description("Epost till kontaktperson. Returnera null om okänd.")]
+		public string? Email { get; set; }
+		[Description("Telefonnummer till kontaktperson. Returnera null om okänd. Om känt, returnera följande format. Exempel: +46-70-123-45-67")]
+		public string? Phone { get; set; }
 	}
 
 	public enum ExperienceLevel
@@ -62,21 +79,4 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 		Projekt,
 		Praktik
 	}
-
-	/*public class JobExtract2
-	{
-		public string EmploymentTitle { get; set; }
-		public string EmploymentType { get; set; }              // T.ex. "Tillsvidare"
-		[Description("Location of the employment")]
-		public string Location { get; set; }                    // T.ex. "Örebro eller Kista"
-		[Description("Tools and technologies used in the employment")]
-		public List<string> ToolsAndTechnologies { get; set; }  // ["C#", ".NET", "Blazor"]
-
-		[Description($"Only type the skill. Ex. \"SQL\", \"Agilt arbete\"")]
-		public List<string> RequiredSkills { get; set; }        // ["SQL", "agilt arbete"]
-		[Description($"Only type the skill. Ex. \"SQL\", \"Agilt arbete\"")]
-		public List<string> MeritingSkills { get; set; }        // ["RabbitMQ", "Azure DevOps"]
-		public string ApplicationDeadline { get; set; }         // "2025-04-28"
-																//public ContactPerson2 Contact { get; set; }
-	}*/
 }

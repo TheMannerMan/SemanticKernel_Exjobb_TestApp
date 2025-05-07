@@ -1,0 +1,35 @@
+﻿{
+  "EmploymentTitle": [
+    "Systemutvecklare",
+    "Backendutvecklare",
+    ".NET-utvecklare"
+  ],
+  "EmploymentType": null,
+  "IsTrialEmployment": null,
+  "Location": [ "Stockholm", "Malmö", "Östersund, Göteborg"],
+  "ToolsAndTechnologies": [
+    "C#",
+    "Offentlig sektor",
+    "Telekom"
+  ],
+  "RequiredSkills": [
+    "NET",
+    "Svenska",
+    "Engelska"
+  ],
+  "MeritingSkills": [
+    "JavaScript",
+    "Azure",
+    "Microtjänster"
+  ],
+  "SoftSkills": null,
+  "ExperienceLevel": "Mid",
+  "Contact": {
+    "Name": "Hanna Korell",
+    "Email": "hanna.korell@soprasteria.com",
+    "Phone": null
+  },
+  "ReferenceNumber": null,
+  "ApplicationDeadline": null,
+  "Employer": "Sopra Steria"
+}

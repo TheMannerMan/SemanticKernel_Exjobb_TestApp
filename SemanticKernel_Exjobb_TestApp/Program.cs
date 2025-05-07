@@ -34,7 +34,7 @@ Kernel kernel = kernelBuilder.Build();
 
 var service = app.Services.GetRequiredService<JobAdService>();
 
-JobAdApiData? job = await service.FetchJobAsync("29676073");
+JobAdApiData? job = await service.FetchJobAsync("29676134");
 
 if (job == null)
 {
@@ -57,16 +57,6 @@ var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(
 
 JobExtract jobExtract = JsonSerializer.Deserialize<JobExtract>(result.ToString());
 
-//var testtest = result.GetValue<JobExtract>();
-
-//var formattedJson = JsonSerializer.Serialize(testtest, new JsonSerializerOptions
-//{
-//	WriteIndented = true
-//});
-
-//Console.WriteLine(formattedJson);
-
-//PrintProperties(jobExtract);
 
 PrintJobExtract(jobExtract);
 
@@ -76,15 +66,22 @@ static void PrintJobExtract(JobExtract job)
 	job.EmploymentTitle?.ForEach(title => Console.WriteLine($"- {title}"));
 
 	Console.WriteLine($"Anställningstyp: {job.EmploymentType}");
-	if (job.IsTrialEmployment)
+
+	Console.Write("Innehåller provanställning: ");
+	if (job?.IsTrialEmployment.HasValue == true)
 	{
-		Console.WriteLine("Innehåller provanställning");
+		Console.WriteLine(job.IsTrialEmployment.Value ? "Ja" : "Nej");
+	}
+	else
+	{
+		Console.WriteLine("Okänt");
 	}
 
-	Console.WriteLine($"Plats: {job.Location}");
+	Console.WriteLine($"Plats:");
+	job.Location?.ForEach(location => Console.WriteLine($"- {location}"));
 
 	Console.WriteLine("Verktyg och teknologier:");
-	job.ToolsAndTechnologies?.ForEach(tool => Console.WriteLine($"- {tool}"));
+	job.JobResponsiblities?.ForEach(tool => Console.WriteLine($"- {tool}"));
 
 	Console.WriteLine("Kravkompetenser:");
 	job.RequiredSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));

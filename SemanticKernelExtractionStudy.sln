@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKJobExtractor", "SemanticKernel_Exjobb_TestApp\SKJobExtractor.csproj", "{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKJobExtractor.Tests", "SKJobExtractor.Tests\SKJobExtractor.Tests.csproj", "{B09B59D4-1FA8-4738-8E69-739ABBED2772}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B09B59D4-1FA8-4738-8E69-739ABBED2772}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B09B59D4-1FA8-4738-8E69-739ABBED2772}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B09B59D4-1FA8-4738-8E69-739ABBED2772}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B09B59D4-1FA8-4738-8E69-739ABBED2772}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
