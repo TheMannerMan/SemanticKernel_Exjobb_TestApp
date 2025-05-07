@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SemanticKernel_Exjobb_TestApp", "SemanticKernel_Exjobb_TestApp\SemanticKernel_Exjobb_TestApp.csproj", "{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SKJobExtractor", "SemanticKernel_Exjobb_TestApp\SKJobExtractor.csproj", "{A9261B2E-E044-45BC-B923-ED3FB1D6D96A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
