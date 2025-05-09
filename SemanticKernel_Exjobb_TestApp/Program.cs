@@ -83,19 +83,11 @@ static void PrintJobExtract(JobExtract job)
 
 	Console.WriteLine($"Plats: {job.Location}");
 
-	Console.WriteLine("Verktyg och teknologier:");
-	job.ToolsAndTechnologies?.ForEach(tool => Console.WriteLine($"- {tool}"));
-
 	Console.WriteLine("Kravkompetenser:");
 	job.RequiredSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
 
 	Console.WriteLine("Meriterande kompetenser:");
 	job.MeritingSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
-
-	Console.WriteLine("Personliga egenskaper:");
-	job.SoftSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
-
-	Console.WriteLine($"Erfarenhetsnivå: {job.ExperienceLevel}");
 
 	Console.WriteLine($"Arbetsgivare: {job.Employer}");
 	Console.WriteLine($"Referensnummer: {job.ReferenceNumber}");
