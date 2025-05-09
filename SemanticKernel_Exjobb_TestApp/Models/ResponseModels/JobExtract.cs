@@ -23,7 +23,7 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 		[Description("Är anställningen provanställning? Svara true, false eller null om okänt.")]
 		public bool? IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
 		
-		[Description("Primär anställningsort. Ange samtliga om fler. Ange stad. Svara distans om distans. Returnera null om okänd")]
+		[Description("Primär anställningsort. Ange samtliga om fler. Ange endast stad. Svara distans om distans. Returnera null om okänd")]
 		public List<string> Location { get; set; }                    // T.ex. "Karlstad, Stockholm, Distans"
 
 		[Description("Obligatoriska färdigheter för tjänsten, såsom erfarenhet inom specifika områden eller teknologier. Svara enbart med nyckelord. (JavaScript, SQL, MassTransit). Obligatoriskt. Särskilj från meriterande färdigheter")]
