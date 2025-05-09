@@ -15,8 +15,8 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 		public List<string> EmploymentTitle { get; set; }
 
 		[JsonConverter(typeof(JsonStringEnumConverter))] // Ensures enum values are serialized/deserialized as strings (e.g. "Tillsvidare") instead of integers, which is required for correct LLM output parsing.
-		public EmploymentType EmploymentType { get; set; }              // T.ex. "Tillsvidare"
-		public bool IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
+		public EmploymentType? EmploymentType { get; set; }              // T.ex. "Tillsvidare"
+		public bool? IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
 		public List<string> JobLocation { get; set; }                    // T.ex. "Karlstad, Stockholm, Distans"
 
 		public List<string> RequiredSkills { get; set; }        // ["SQL", "agilt arbete"]
