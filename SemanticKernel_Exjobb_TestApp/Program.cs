@@ -76,12 +76,19 @@ static void PrintJobExtract(JobExtract job)
 	job.EmploymentTitle?.ForEach(title => Console.WriteLine($"- {title}"));
 
 	Console.WriteLine($"Anställningstyp: {job.EmploymentType}");
-	if (job.IsTrialEmployment)
+
+	Console.Write("Innehåller provanställning: ");
+	if (job?.IsTrialEmployment.HasValue == true)
 	{
-		Console.WriteLine("Innehåller provanställning");
+		Console.WriteLine(job.IsTrialEmployment.Value ? "Ja" : "Nej");
+	}
+	else
+	{
+		Console.WriteLine("Okänt");
 	}
 
-	Console.WriteLine($"Plats: {job.Location}");
+	Console.WriteLine($"Plats:");
+	job.JobLocation?.ForEach(location => Console.WriteLine($"- {location}"));
 
 	Console.WriteLine("Kravkompetenser:");
 	job.RequiredSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
