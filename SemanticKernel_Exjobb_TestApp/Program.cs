@@ -49,11 +49,22 @@ else
 
 string jobDescription = job.description.text;
 
+
+#pragma warning disable SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(new AzureOpenAIPromptExecutionSettings
 {
 	ResponseFormat = typeof(JobExtract),
-	Temperature = 0.0
+	Temperature = 0.0,
+	ChatSystemPrompt = @"Extrahera informationen från jobbannonsen och svara på svenska för följande: tjänstens titel, anställningstyp, plats och erfarenhetsnivå. 
+För ansvarsområden och personliga egenskaper, översätt till svenska om det finns en tydlig och naturlig motsvarighet. Presentera varje ansvarsområde och personlig egenskap som ett separat nyckelord i respektive lista.
+Behåll namn på tekniker (t.ex. C#, .NET, Azure Service Bus), arbetsgivare och eventuella personnamn i originalspråket. Extrahera varje teknik och färdighet (både krav och meriterande) som ett separat nyckelord i respektive lista.
+
+Exempel på extraherade nyckelord för kravkompetenser: ['C#', '.NET 6+', 'Docker', 'SQL'].
+Exempel på översättning och extrahering av ansvarsområden: 'Software development' -> ['Mjukvaruutveckling'], 'Agile team collaboration' -> ['Agilt samarbete'].
+Exempel på översättning och extrahering av personliga egenskaper: 'Analytical skills' -> ['Analytisk'], 'Team player' -> ['Samarbetsorienterad'].
+Returnera resultatet i det JSON-format som definieras av JobExtract-klassen."
 }));
+#pragma warning restore SKEXP0010 // Type is for evaluation purposes only and is subject to change or removal in future updates. Suppress this diagnostic to proceed.
 
 
 JobExtract jobExtract = JsonSerializer.Deserialize<JobExtract>(result.ToString());

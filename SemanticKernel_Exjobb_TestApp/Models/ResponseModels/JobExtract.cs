@@ -13,7 +13,7 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 	public class JobExtract
 	{
 		// Job adds can have multiple titles. Thereby we have a list of titles.
-		[Description("Svara i CAPS. Tjänsten titel, t.ex. arkitekt, systemutvecklare, snickare. Obligatorisk")]
+		[Description("Enbart tjänsten titel, t.ex. arkitekt, systemutvecklare, snickare. Obligatorisk")]
 		public List<string> EmploymentTitle { get; set; }
 
 		[Description("Anställningstyp. Tillsvidare,Tidsbegränsad,Projekt eller Praktik. Returnera null om okänd")]
@@ -23,24 +23,14 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 		[Description("Är anställningen provanställning? Svara true, false eller null om okänt.")]
 		public bool? IsTrialEmployment { get; set; }              // T.ex. "Provanställning"
 		
-		[Description("Primär anställningsort. Ange samtliga om fler. Svara distans om distans. Returnera null om okänd")]
+		[Description("Primär anställningsort. Ange samtliga om fler. Ange stad. Svara distans om distans. Returnera null om okänd")]
 		public List<string> Location { get; set; }                    // T.ex. "Karlstad, Stockholm, Distans"
-
-		[Description("Arbetsuppgifter i tjänsten. Svara enbart med nyckelord Exempel: handläggning, testning, dokumentation. Obligatoriskt.")]
-		public List<string> JobResponsiblities { get; set; }  // ["C#", ".NET", "Blazor"]
 
 		[Description("Obligatoriska färdigheter för tjänsten, såsom erfarenhet inom specifika områden eller teknologier. Svara enbart med nyckelord. (JavaScript, SQL, MassTransit). Obligatoriskt. Särskilj från meriterande färdigheter")]
 		public List<string> RequiredSkills { get; set; }        // ["SQL", "agilt arbete"]
 
 		[Description("Meriterande färdigheter för tjänsten, såsom erfarenhet inom specifika områden eller teknologier. Svara enbart med nyckelord (JavaScript, SQL, MassTransit). Obligatoriskt. Särskilj från obligatoriska färdigheter")]
 		public List<string> MeritingSkills { get; set; }        // ["RabbitMQ", "Azure DevOps"]
-
-		[Description("Personliga egenskaper. T.ex ”Engagerad” eller ”Analytisk”. Svara enbart med nyckelord. Obligatorisk.")]
-		public List<string> SoftSkills { get; set; } // ["samarbetsorienterad", "problemlösande"]
-
-		[Description("Förväntad erfarenhetsnivå. Välj Junior, Mid eller Senior. Obligatoriskt.")]
-		[JsonConverter(typeof(JsonStringEnumConverter))] // Ensures enum values are serialized/deserialized as strings (e.g. "Mid") instead of integers, which is required for correct LLM output parsing.
-		public ExperienceLevel ExperienceLevel { get; set; } // Junior, Mid, Senior
 
 		[Description("Kontaktperson för annonsen. Obligatoriskt")]
 		public ContactPerson Contact { get; set; }
@@ -49,7 +39,7 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 		public string? ReferenceNumber { get; set; }
 
 		[Description("Sista ansökningsdag. Returnera null om okänd. Svara i följande format YYYY-MM-DD. ")]
-		public DateTime? ApplicationDeadline { get; set; }         // "2025-04-28"
+		public string ApplicationDeadline { get; set; }
 		
 		[Description("Arbetsgivare. Obligatoriskt.")]
 		public string Employer { get; set; }
