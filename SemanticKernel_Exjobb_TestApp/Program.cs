@@ -51,7 +51,8 @@ string jobDescription = job.description.text;
 
 var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(new AzureOpenAIPromptExecutionSettings
 {
-	ResponseFormat = typeof(JobExtract)
+	ResponseFormat = typeof(JobExtract),
+	Temperature = 0.0
 }));
 
 
@@ -80,7 +81,7 @@ static void PrintJobExtract(JobExtract job)
 	Console.WriteLine($"Plats:");
 	job.Location?.ForEach(location => Console.WriteLine($"- {location}"));
 
-	Console.WriteLine("Verktyg och teknologier:");
+	Console.WriteLine("Ansvarsområden:");
 	job.JobResponsiblities?.ForEach(tool => Console.WriteLine($"- {tool}"));
 
 	Console.WriteLine("Kravkompetenser:");
