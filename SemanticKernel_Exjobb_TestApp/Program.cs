@@ -57,16 +57,6 @@ var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(
 
 JobExtract jobExtract = JsonSerializer.Deserialize<JobExtract>(result.ToString());
 
-//var testtest = result.GetValue<JobExtract>();
-
-//var formattedJson = JsonSerializer.Serialize(testtest, new JsonSerializerOptions
-//{
-//	WriteIndented = true
-//});
-
-//Console.WriteLine(formattedJson);
-
-//PrintProperties(jobExtract);
 
 PrintJobExtract(jobExtract);
 
