@@ -23,20 +23,20 @@ namespace SemanticKernel_Exjobb_TestApp.Models.ResponseModels
 	
 		public List<string> MeritingSkills { get; set; }        // ["RabbitMQ", "Azure DevOps"]
 
-		public ContactPerson Contact { get; set; }
+		public ContactPerson? Contact { get; set; }
 
-		public string ReferenceNumber { get; set; }
+		public string? ReferenceNumber { get; set; }
 
-		public string  ApplicationDeadline { get; set; }         // "2025-04-28"
+		public string?  ApplicationDeadline { get; set; }         // "2025-04-28"
 
 		public string Employer { get; set; }
 	}
 
 	public class ContactPerson
 	{
-		public string Name { get; set; }
-		public string Email { get; set; }
-		public string Phone { get; set; }
+		public string? Name { get; set; }
+		public string? Email { get; set; }
+		public string? Phone { get; set; }
 	}
 	public enum EmploymentType
 	{
