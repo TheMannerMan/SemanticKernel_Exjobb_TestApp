@@ -30,11 +30,12 @@ kernelBuilder.AddAzureOpenAIChatCompletion(deploymentModel, endpoint, apiKey);
 
 Kernel kernel = kernelBuilder.Build();
 
-//const int 
 
 var service = app.Services.GetRequiredService<JobAdService>();
 
-JobAdApiData? job = await service.FetchJobAsync("29676073");
+JobAdApiData? job = await service.FetchJobAsync("29652183");
+
+
 
 if (job == null)
 {
@@ -42,60 +43,54 @@ if (job == null)
 	return;
 }
 
-else
-{
-	Console.WriteLine("Job found");
-}
-
 string jobDescription = job.description.text;
 
-var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(new AzureOpenAIPromptExecutionSettings
+for (int i = 1; i <= 3; i++)
 {
-	ResponseFormat = typeof(JobExtract)
-}));
+	var result = await kernel.InvokePromptAsync(jobDescription, new KernelArguments(new AzureOpenAIPromptExecutionSettings
+	{
+		ResponseFormat = typeof(JobExtract),
+		}));
 
+	JobExtract jobExtract = JsonSerializer.Deserialize<JobExtract>(result.ToString());
 
-JobExtract jobExtract = JsonSerializer.Deserialize<JobExtract>(result.ToString());
+	// Spara resultat till textfil
+	string fileName = $"iteration1_test{i}.txt";
+	using var writer = new StreamWriter(fileName);
+	PrintJobExtract(jobExtract, writer);
 
+	Console.WriteLine($"Test {i} sparat i {fileName}");
+}
 
-PrintJobExtract(jobExtract);
-
-static void PrintJobExtract(JobExtract job)
+static void PrintJobExtract(JobExtract job, TextWriter writer)
 {
-	Console.WriteLine("Titel:");
-	job.EmploymentTitle?.ForEach(title => Console.WriteLine($"- {title}"));
+	writer.WriteLine("Titel:");
+	job.EmploymentTitle?.ForEach(title => writer.WriteLine($"- {title}"));
 
-	Console.WriteLine($"Anställningstyp: {job.EmploymentType}");
+	writer.WriteLine($"Anställningstyp: {job.EmploymentType}");
 
-	Console.Write("Innehåller provanställning: ");
-	if (job?.IsTrialEmployment.HasValue == true)
-	{
-		Console.WriteLine(job.IsTrialEmployment.Value ? "Ja" : "Nej");
-	}
-	else
-	{
-		Console.WriteLine("Okänt");
-	}
+	writer.Write("Innehåller provanställning: ");
+	writer.WriteLine(job?.IsTrialEmployment.HasValue == true ? (job.IsTrialEmployment.Value ? "Ja" : "Nej") : "Okänt");
 
-	Console.WriteLine($"Plats:");
-	job.JobLocation?.ForEach(location => Console.WriteLine($"- {location}"));
+	writer.WriteLine("Plats:");
+	job.JobLocation?.ForEach(location => writer.WriteLine($"- {location}"));
 
-	Console.WriteLine("Kravkompetenser:");
-	job.RequiredSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
+	writer.WriteLine("Kravkompetenser:");
+	job.RequiredSkills?.ForEach(skill => writer.WriteLine($"- {skill}"));
 
-	Console.WriteLine("Meriterande kompetenser:");
-	job.MeritingSkills?.ForEach(skill => Console.WriteLine($"- {skill}"));
+	writer.WriteLine("Meriterande kompetenser:");
+	job.MeritingSkills?.ForEach(skill => writer.WriteLine($"- {skill}"));
 
-	Console.WriteLine($"Arbetsgivare: {job.Employer}");
-	Console.WriteLine($"Referensnummer: {job.ReferenceNumber}");
-	Console.WriteLine($"Sista ansökningsdag: {job.ApplicationDeadline:yyyy-MM-dd}");
+	writer.WriteLine($"Arbetsgivare: {job.Employer}");
+	writer.WriteLine($"Referensnummer: {job.ReferenceNumber}");
+	writer.WriteLine($"Sista ansökningsdag: {job.ApplicationDeadline}");
 
 	if (job.Contact != null)
 	{
-		Console.WriteLine("Kontaktperson:");
-		Console.WriteLine($"- Namn: {job.Contact.Name}");
-		Console.WriteLine($"- E-post: {job.Contact.Email}");
-		Console.WriteLine($"- Telefon: {job.Contact.Phone}");
+		writer.WriteLine("Kontaktperson:");
+		writer.WriteLine($"- Namn: {job.Contact.Name}");
+		writer.WriteLine($"- E-post: {job.Contact.Email}");
+		writer.WriteLine($"- Telefon: {job.Contact.Phone}");
 	}
 }
 
