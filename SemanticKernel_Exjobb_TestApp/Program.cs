@@ -93,5 +93,3 @@ static void PrintJobExtract(JobExtract job, TextWriter writer)
 		writer.WriteLine($"- Telefon: {job.Contact.Phone}");
 	}
 }
-
-Console.WriteLine();
