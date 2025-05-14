@@ -30,12 +30,11 @@ kernelBuilder.AddAzureOpenAIChatCompletion(deploymentModel, endpoint, apiKey);
 
 Kernel kernel = kernelBuilder.Build();
 
-
 var service = app.Services.GetRequiredService<JobAdService>();
 
+// NOTE: Replace the ID below with your own job ad ID from the Swedish Public Employment Service (Arbetsförmedlingen).
+// The ID can be found in the URL of a specific ad, e.g., https://arbetsformedlingen.se/platsbanken/annonser/29652183
 JobAdApiData? job = await service.FetchJobAsync("29652183");
-
-
 
 if (job == null)
 {
